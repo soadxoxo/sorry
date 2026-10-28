@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sorry, Sadia 💗</title>
+<style>
+  :root{--pink:#ff6b9d;--deep:#d6336c;--soft:#ffe3ec;--cream:#fff8f3;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{min-height:100vh;font-family:"Segoe UI",system-ui,sans-serif;background:linear-gradient(160deg,#ffd1e1,#ffe9f0 50%,#ffd9c7);color:#5a1a35;display:flex;align-items:center;justify-content:center;overflow-x:hidden;padding:16px}
+  #hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+  .heart{position:absolute;bottom:-40px;animation:floatUp linear forwards;opacity:.7}
+  @keyframes floatUp{to{transform:translateY(-115vh) rotate(25deg);opacity:0}}
+  .screen{position:relative;z-index:1;width:100%;max-width:480px;text-align:center;display:none}
+  .screen.active{display:block;animation:pop .5s ease}
+  @keyframes pop{from{opacity:0;transform:scale(.92) translateY(12px)}to{opacity:1;transform:none}}
+  h1{font-size:2.1rem;color:var(--deep);margin:8px 0}
+  .sub{font-size:1.05rem;margin-bottom:22px;line-height:1.5}
+  .emoji-big{font-size:4.2rem;animation:bob 2s ease-in-out infinite}
+  @keyframes bob{50%{transform:translateY(-10px) rotate(4deg)}}
+  .btns{display:flex;flex-direction:column;gap:12px;align-items:center}
+  button{font:inherit;font-weight:700;border:none;border-radius:999px;padding:14px 28px;cursor:pointer;font-size:1.05rem;transition:transform .15s,box-shadow .15s;width:min(300px,100%)}
+  button:active{transform:scale(.95)}
+  .accept{background:linear-gradient(135deg,#ff6b9d,#ff8fab);color:#fff;box-shadow:0 8px 20px rgba(255,107,157,.45)}
+  .accept:hover{transform:translateY(-2px) scale(1.03)}
+  .punish{background:#fff;color:var(--deep);border:2px solid var(--pink)}
+  .punish:hover{background:var(--soft)}
+  /* envelope */
+  .env-wrap{height:230px;display:flex;align-items:center;justify-content:center;perspective:700px}
+  .envelope{position:relative;width:240px;height:160px;background:#ff8fab;border-radius:8px;box-shadow:0 10px 25px rgba(214,51,108,.35)}
+  .envelope .flap{position:absolute;top:0;left:0;width:100%;height:100px;background:#ff6b9d;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .8s;z-index:3;border-radius:8px 8px 0 0}
+  .envelope .front{position:absolute;inset:0;background:#ffa5bd;clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);border-radius:8px;z-index:2}
+  .envelope .seal{position:absolute;top:70px;left:50%;transform:translateX(-50%);font-size:2rem;z-index:4;transition:opacity .3s}
+  .envelope.open .flap{transform:rotateX(180deg);z-index:0}
+  .envelope.open .seal{opacity:0}
+  .envelope .paper{position:absolute;left:12px;right:12px;top:10px;height:130px;background:var(--cream);border-radius:6px;z-index:1;transition:transform .8s .5s}
+  .envelope.open .paper{transform:translateY(-70px)}
+  /* note */
+  .note{background:var(--cream);border-radius:18px;padding:28px 24px;text-align:left;box-shadow:0 14px 40px rgba(214,51,108,.3);border:2px solid #ffc2d6;background-image:repeating-linear-gradient(transparent 0 31px,#ffe3ec 31px 32px)}
+  .note h2{text-align:center;color:var(--deep);font-family:Georgia,serif;margin-bottom:12px;font-size:1.6rem}
+  .note p{font-family:Georgia,serif;line-height:32px;font-size:1.02rem;opacity:0;animation:fade .8s forwards}
+  .note p:nth-of-type(1){animation-delay:.3s}.note p:nth-of-type(2){animation-delay:1.4s}
+  .note p:nth-of-type(3){animation-delay:2.6s}.note p:nth-of-type(4){animation-delay:3.8s}
+  .note p:nth-of-type(5){animation-delay:5s}
+  .sign{text-align:right;font-style:italic;color:var(--deep)}
+  @keyframes fade{to{opacity:1}}
+  /* stage */
+  .stage{position:relative;height:210px;background:linear-gradient(#bfe9ff 0 70%,#a8e6a1 70%);border-radius:18px;border:3px solid #fff;box-shadow:0 8px 24px rgba(0,0,0,.12);overflow:hidden;margin-bottom:14px}
+  .char{position:absolute;bottom:20px;width:100px;height:150px}
+  .char svg{width:100%;height:100%;overflow:visible}
+  #sadia{left:6%}#soad{right:6%}
+  #soad svg{transform:scaleX(-1)}
+  .arm{transform-origin:62px 66px;transform:rotate(80deg)}
+  .dizzy{display:none}.hurt .dizzy{display:inline}.hurt .eyes{display:none}
+  .lump{display:none}.hits1 .l1,.hits2 .l1,.hits2 .l2,.hits3 .l1,.hits3 .l2,.hits3 .l3{display:inline}
+  .fx{position:absolute;font-weight:900;font-size:1.8rem;color:#e03131;text-shadow:2px 2px #fff,-2px -2px #fff,2px -2px #fff,-2px 2px #fff;pointer-events:none;animation:fx 0.8s forwards;z-index:5}
+  @keyframes fx{0%{transform:scale(.3) rotate(-12deg);opacity:0}30%{transform:scale(1.3) rotate(8deg);opacity:1}100%{transform:translateY(-40px) scale(1);opacity:0}}
+  .bubble{min-height:26px;font-weight:700;color:var(--deep);margin-bottom:12px}
+</style>
+</head>
+<body>
+<div id="hearts"></div>
+
+<!-- Screen 1 -->
+<section class="screen active" id="s-home">
+  <div class="emoji-big">🥺</div>
+  <h1>Sadia, I'm sorry</h1>
+  <p class="sub">I was rude and I know it.<br>This is from the bottom of my heart, from your Soad 💗</p>
+  <div class="btns">
+    <button class="accept" id="btnAccept">Accept my sorry 💖</button>
+    <button class="punish" id="btnPunish">Punish Soad 👊</button>
+  </div>
+</section>
+
+<!-- Screen 2: envelope -->
+<section class="screen" id="s-env">
+  <h1>A little something for you 💌</h1>
+  <div class="env-wrap">
+    <div class="envelope" id="envelope">
+      <div class="paper"></div>
+      <div class="flap"></div>
+      <div class="front"></div>
+      <div class="seal">💗</div>
+    </div>
+  </div>
+  <p class="sub">Opening...</p>
+</section>
+
+<!-- Screen 3: note -->
+<section class="screen" id="s-note">
+  <div class="note">
+    <h2>My dearest Sadia 💕</h2>
+    <p>I'm truly sorry for being rude to you. You never deserved the way I spoke or acted, and I hate that I made you feel hurt.</p>
+    <p>You are the one person who always stays, listens and cares for me, and I should have treated you with the softness you give me every day.</p>
+    <p>I was wrong, and no excuse can change that. What I can do is promise to think before I speak, to listen more, and to be gentler with the words I choose.</p>
+    <p>Thank you for being patient with me, even when I don't deserve it. Your smile is my favourite place in the whole world.</p>
+    <p class="sign">Forgive me? 🥹<br>Always yours,<br>Soad 💗</p>
+  </div>
+  <div class="btns" style="margin-top:16px">
+    <button class="punish" id="btnBack">↩ Back</button>
+  </div>
+</section>
+
+<!-- Screen 4: punishment -->
+<section class="screen" id="s-punish">
+  <h1>Punishment time 😤</h1>
+  <div class="stage" id="stage">
+    <div class="char" id="sadia">
+      <svg viewBox="0 0 100 150">
+        <ellipse cx="50" cy="40" rx="32" ry="34" fill="#3b2219"/>
+        <rect x="18" y="40" width="64" height="64" rx="20" fill="#3b2219"/>
+        <rect x="30" y="68" width="40" height="46" rx="14" fill="#ff6b9d"/>
+        <polygon points="30,92 70,92 82,130 18,130" fill="#ff6b9d"/>
+        <rect x="38" y="128" width="9" height="18" rx="4" fill="#f5c6a5"/>
+        <rect x="53" y="128" width="9" height="18" rx="4" fill="#f5c6a5"/>
+        <circle cx="50" cy="42" r="24" fill="#f9d5b8"/>
+        <path d="M26 38c6-18 42-18 48 0c-12-6-36-6-48 0z" fill="#3b2219"/>
+        <circle cx="41" cy="44" r="3" fill="#222"/><circle cx="59" cy="44" r="3" fill="#222"/>
+        <path d="M37 36l8 3M63 36l-8 3" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M43 56q7 -4 14 0" stroke="#c2255c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <circle cx="34" cy="52" r="4" fill="#ff9bb8" opacity=".7"/><circle cx="66" cy="52" r="4" fill="#ff9bb8" opacity=".7"/>
+        <g class="arm" id="armS"><rect x="58" y="62" width="34" height="10" rx="5" fill="#f9d5b8"/><circle cx="94" cy="67" r="8" fill="#f9d5b8" stroke="#e8a98a" stroke-width="1.5"/></g>
+      </svg>
+    </div>
+    <div class="char" id="soad">
+      <svg viewBox="0 0 100 150">
+        <rect x="32" y="68" width="36" height="46" rx="12" fill="#4dabf7"/>
+        <rect x="36" y="112" width="12" height="34" rx="5" fill="#364fc7"/>
+        <rect x="52" y="112" width="12" height="34" rx="5" fill="#364fc7"/>
+        <rect x="22" y="72" width="10" height="34" rx="5" fill="#f1c9a5"/>
+        <rect x="68" y="72" width="10" height="34" rx="5" fill="#f1c9a5"/>
+        <circle cx="50" cy="42" r="24" fill="#f1c9a5"/>
+        <path d="M26 38c0-20 48-20 48 0c-8-8-38-8-48 0z" fill="#1f1410"/>
+        <g class="eyes"><circle cx="41" cy="44" r="3" fill="#222"/><circle cx="59" cy="44" r="3" fill="#222"/>
+          <path d="M44 56q6 5 12 0" stroke="#7a2e1d" stroke-width="2.5" fill="none" stroke-linecap="round"/></g>
+        <g class="dizzy"><text x="34" y="49" font-size="14" font-weight="900" fill="#222">x</text><text x="54" y="49" font-size="14" font-weight="900" fill="#222">x</text>
+          <ellipse cx="50" cy="58" rx="6" ry="4" fill="#7a2e1d"/></g>
+        <circle class="lump l1" cx="30" cy="30" r="6" fill="#ff8787"/>
+        <circle class="lump l2" cx="70" cy="36" r="5" fill="#ff8787"/>
+        <circle class="lump l3" cx="62" cy="22" r="6" fill="#ff6b6b"/>
+      </svg>
+    </div>
+  </div>
+  <div class="bubble" id="bubble">Soad is waiting... nervously 😰</div>
+  <div class="btns">
+    <button class="punish" id="btnHit">Beat him up 👊</button>
+    <button class="accept" id="btnForgive" style="display:none">Okay, I forgive you 💖</button>
+  </div>
+</section>
+
+<script>
+const $ = id => document.getElementById(id);
+const show = id => { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); $(id).classList.add('active'); };
+const wait = ms => new Promise(r => setTimeout(r, ms));
+
+// floating hearts
+const hs = ['💗','💖','💕','🌸','💘','✨'];
+function spawnHeart(){
+  const h = document.createElement('div');
+  h.className = 'heart';
+  h.textContent = hs[Math.floor(Math.random()*hs.length)];
+  h.style.left = Math.random()*100 + 'vw';
+  h.style.fontSize = (14 + Math.random()*22) + 'px';
+  h.style.animationDuration = (6 + Math.random()*6) + 's';
+  $('hearts').appendChild(h);
+  setTimeout(() => h.remove(), 12000);
+}
+setInterval(spawnHeart, 600);
+
+function burst(){ for(let i=0;i<24;i++) setTimeout(spawnHeart, i*40); }
+
+// accept
+async function openNote(){
+  show('s-env');
+  await wait(600);
+  $('envelope').classList.add('open');
+  await wait(1900);
+  show('s-note');
+  burst();
+}
+$('btnAccept').onclick = openNote;
+$('btnBack').onclick = () => show('s-home');
+
+// punish
+let hits = 0, busy = false;
+$('btnPunish').onclick = () => { show('s-punish'); };
+const words = ['POW!','BAM!','THWACK!','BONK!'];
+const lines = ['Ouch!! 😵','Okay okay, I deserved that!','Please... no more 🙏','I\'m sorry, Sadia!! 😭'];
+
+function fx(text, x, y){
+  const e = document.createElement('div');
+  e.className = 'fx'; e.textContent = text;
+  e.style.left = x + 'px'; e.style.top = y + 'px';
+  $('stage').appendChild(e);
+  setTimeout(() => e.remove(), 900);
+}
+
+$('btnHit').onclick = async () => {
+  if (busy) return;
+  busy = true;
+  const stage = $('stage'), sadia = $('sadia'), soad = $('soad'), arm = $('armS');
+  const sr = stage.getBoundingClientRect();
+  const a = sadia.getBoundingClientRect(), b = soad.getBoundingClientRect();
+  const dist = b.left - a.left - 95;
+
+  // run up
+  await sadia.animate([{transform:'translateX(0)'},{transform:`translateX(${dist}px)`}], {duration:450, easing:'ease-in', fill:'forwards'}).finished;
+  // swing arm
+  arm.animate([{transform:'rotate(80deg)'},{transform:'rotate(-40deg)'},{transform:'rotate(0deg)'}], {duration:280, fill:'forwards'});
+  await wait(200);
+  // impact
+  hits++;
+  soad.classList.add('hurt');
+  stage.className = 'stage hits' + Math.min(hits,3);
+  const ix = b.left - sr.left, iy = 40;
+  fx(words[(hits-1)%words.length], ix - 20, iy);
+  ['⭐','💫','✨'].forEach((s,i) => setTimeout(() => fx(s, ix + i*18 - 10, iy + 30), i*60));
+  $('bubble').textContent = lines[(hits-1)%lines.length];
+  soad.animate([
+    {transform:'translate(0,0) rotate(0)'},
+    {transform:'translate(30px,-30px) rotate(18deg)'},
+    {transform:'translate(-6px,0) rotate(-8deg)'},
+    {transform:'translate(8px,0) rotate(5deg)'},
+    {transform:'translate(0,0) rotate(0)'}
+  ], {duration:700, easing:'ease-out'});
+  stage.animate([{transform:'translateX(0)'},{transform:'translateX(-5px)'},{transform:'translateX(5px)'},{transform:'translateX(0)'}], {duration:250, iterations:2});
+  await wait(750);
+  // retreat
+  arm.animate([{transform:'rotate(0deg)'},{transform:'rotate(80deg)'}], {duration:250, fill:'forwards'});
+  await sadia.animate([{transform:`translateX(${dist}px)`},{transform:'translateX(0)'}], {duration:400, fill:'forwards'}).finished;
+  soad.classList.remove('hurt');
+
+  if (hits >= 3){
+    $('bubble').textContent = 'Punishment served 😤 ...so, forgive me now?';
+    $('btnHit').style.display = 'none';
+    $('btnForgive').style.display = 'block';
+  }
+  busy = false;
+};
+$('btnForgive').onclick = openNote;
+</script>
+</body>
+</html>
