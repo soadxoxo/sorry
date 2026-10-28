@@ -44,22 +44,58 @@
   .note p:nth-of-type(5){animation-delay:5s}
   .sign{text-align:right;font-style:italic;color:var(--deep)}
   @keyframes fade{to{opacity:1}}
-  /* stage */
-  .stage{position:relative;height:240px;background:linear-gradient(#bfe9ff 0 70%,#a8e6a1 70%);border-radius:18px;border:3px solid #fff;box-shadow:0 8px 24px rgba(0,0,0,.12);overflow:hidden;margin-bottom:14px}
-  .char{position:absolute;bottom:20px;width:100px;height:150px}
-  .char svg{width:100%;height:100%;overflow:visible}
-  #sadia{left:6%;width:95px;height:142px}#soad{right:6%;width:117px;height:175px}
-  .tag{position:absolute;bottom:3px;font-size:.7rem;font-weight:800;color:#2b6a2b;z-index:2}
-  #tS{left:7%}#tM{right:7%}
-  #soad svg{transform:scaleX(-1)}
-  .arm{transform-origin:62px 66px;transform:rotate(80deg)}
-  .dizzy{display:none}.hurt .dizzy{display:inline}
+  /* ===== arena ===== */
+  #s-punish{max-width:520px}
+  .arena{position:relative;height:300px;border-radius:14px;overflow:hidden;border:3px solid #e0b25a;box-shadow:0 12px 32px rgba(40,10,60,.45),0 0 0 2px #3a1a05;margin-bottom:14px;background:#0b0420;touch-action:manipulation}
+  .world{position:absolute;inset:0}
+  .bg{position:absolute;inset:0;width:100%;height:100%}
+  .flame{transform-box:fill-box;transform-origin:50% 100%;animation:flick .18s infinite alternate}
+  @keyframes flick{from{transform:scale(1,1) skewX(-3deg)}to{transform:scale(.88,1.16) skewX(3deg)}}
+  .fog{position:absolute;bottom:14px;left:-30%;width:160%;height:70px;background:radial-gradient(ellipse at center,rgba(205,175,235,.28),transparent 70%);animation:drift 11s ease-in-out infinite alternate;pointer-events:none;z-index:2}
+  .fog.f2{bottom:30px;height:50px;animation-duration:15s;animation-direction:alternate-reverse;opacity:.7}
+  @keyframes drift{from{transform:translateX(-8%)}to{transform:translateX(8%)}}
+  .shadow{position:absolute;bottom:18px;width:84px;height:14px;border-radius:50%;background:radial-gradient(ellipse,rgba(0,0,0,.6),transparent 70%);z-index:2;left:0}
+  .char{position:absolute;bottom:28px;z-index:3;transform-origin:50% 50%}
+  .char svg{width:100%;height:100%;overflow:visible;animation:bob 1.15s ease-in-out infinite alternate}
+  #soad svg{animation-delay:-.55s}
+  @keyframes bob{to{transform:translateY(-2.5px)}}
+  #sadia{left:8%;width:95px;height:142px}
+  #soad{right:8%;width:117px;height:175px}
+  .dizzy{display:none}.hurt .dizzy{display:inline}.hurt .eyes{display:none}
+  .win .angry{display:none}
   .st{transform-box:fill-box;transform-origin:center;animation:wob .35s infinite alternate}
   @keyframes wob{from{transform:rotate(-25deg)}to{transform:rotate(25deg)}}
-  .hurt .eyes{display:none}
   .lump{display:none}.hits1 .l1,.hits2 .l1,.hits2 .l2,.hits3 .l1,.hits3 .l2,.hits3 .l3{display:inline}
-  .fx{position:absolute;font-weight:900;font-size:1.8rem;color:#e03131;text-shadow:2px 2px #fff,-2px -2px #fff,2px -2px #fff,-2px 2px #fff;pointer-events:none;animation:fx 0.8s forwards;z-index:5}
-  @keyframes fx{0%{transform:scale(.3) rotate(-12deg);opacity:0}30%{transform:scale(1.3) rotate(8deg);opacity:1}100%{transform:translateY(-40px) scale(1);opacity:0}}
+  .fxl{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+  .fx{position:absolute;font:900 1.5rem/1 Impact,"Arial Black",system-ui,sans-serif;font-style:italic;color:#ffd24a;-webkit-text-stroke:1.5px #6b1010;text-shadow:0 3px 0 #8a1c1c,0 0 10px rgba(0,0,0,.6);pointer-events:none;animation:fx .85s forwards}
+  @keyframes fx{0%{transform:scale(.3) rotate(-12deg);opacity:0}25%{transform:scale(1.3) rotate(6deg);opacity:1}100%{transform:translateY(-34px) scale(1);opacity:0}}
+  .spark{position:absolute;animation:spark .34s ease-out forwards}
+  .spark svg{width:100%;height:100%;overflow:visible}
+  @keyframes spark{0%{transform:scale(.2) rotate(-20deg);opacity:1}55%{transform:scale(1.1) rotate(8deg);opacity:1}100%{transform:scale(1.4) rotate(18deg);opacity:0}}
+  .ring{position:absolute;border-radius:50%;border:4px solid #fff;box-shadow:0 0 16px #ffd24a;animation:ring .5s ease-out forwards}
+  @keyframes ring{from{transform:scale(.1);opacity:1}to{transform:scale(1);opacity:0}}
+  .dust{position:absolute;width:12px;height:12px;border-radius:50%;background:rgba(210,190,230,.55);animation:dust .5s ease-out forwards}
+  @keyframes dust{to{transform:translate(-12px,-10px) scale(2.6);opacity:0}}
+  .vignette{position:absolute;inset:0;z-index:5;pointer-events:none;background:radial-gradient(ellipse at center,transparent 52%,rgba(0,0,0,.6))}
+  .flash{position:absolute;inset:0;z-index:7;background:#fff;opacity:0;pointer-events:none}
+  .hud{position:absolute;top:8px;left:8px;right:8px;z-index:6;display:flex;align-items:flex-start;gap:6px;pointer-events:none}
+  .hbar{flex:1}
+  .nm{font:900 11px/1 Impact,"Arial Black",system-ui,sans-serif;letter-spacing:1.6px;color:#ffd77a;text-shadow:0 1px 0 #000,0 0 6px #000;margin-bottom:3px;text-align:left}
+  .hbar.right .nm{text-align:right}
+  .track{height:13px;background:#2a0b12;border:2px solid #e0b25a;border-radius:3px;overflow:hidden;box-shadow:0 0 0 1px #000,inset 0 0 6px #000;display:flex}
+  .fill{height:100%;width:100%;background:linear-gradient(#fff2a8,#ffc83d 45%,#e08a00);transition:width .35s ease-out}
+  .hbar.right .fill{margin-left:auto}
+  .fill.low{background:linear-gradient(#ffb3b3,#ff3b3b 50%,#a50f0f);animation:blinkbar .35s infinite alternate}
+  @keyframes blinkbar{to{filter:brightness(1.6)}}
+  .timer{font:900 22px/1 Impact,"Arial Black",system-ui,sans-serif;color:#ffd77a;min-width:34px;text-align:center;text-shadow:0 2px 0 #000,0 0 8px #000;padding-top:6px}
+  .banner{position:absolute;left:0;right:0;top:34%;text-align:center;z-index:8;pointer-events:none;opacity:0;font:900 clamp(34px,11vw,58px)/1 Impact,"Arial Black",system-ui,sans-serif;font-style:italic;letter-spacing:3px;text-transform:uppercase;color:#ffd24a;-webkit-text-stroke:2px #5a0f0f;text-shadow:0 4px 0 #8a1c1c,0 8px 18px rgba(0,0,0,.75)}
+  .banner.show{animation:bann var(--ms,1.1s) ease-out forwards}
+  .banner.show.stay{animation-name:bannstay}
+  .banner.ko{color:#ff4b4b;font-size:clamp(46px,16vw,80px)}
+  .banner.sm{font-size:clamp(24px,7.4vw,42px);letter-spacing:2px}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  @keyframes bann{0%{opacity:0;transform:scale(2.3)}14%{opacity:1;transform:scale(1)}84%{opacity:1;transform:scale(1.05)}100%{opacity:0;transform:scale(1.25)}}
+  @keyframes bannstay{0%{opacity:0;transform:scale(2.3)}18%{opacity:1;transform:scale(1)}100%{opacity:1;transform:scale(1)}}
   .bubble{min-height:26px;font-weight:700;color:var(--deep);margin-bottom:12px}
 </style>
 </head>
@@ -108,14 +144,56 @@
 
 <!-- Screen 4: punishment -->
 <section class="screen" id="s-punish">
-  <h1>Punishment time 😤</h1>
-  <div class="stage" id="stage">
-    <div class="char" id="sadia">
-      <svg viewBox="0 0 100 150">
-        <ellipse cx="50" cy="40" rx="32" ry="34" fill="#21130f"/>
-        <rect x="17" y="40" width="66" height="74" rx="22" fill="#21130f"/>
+  <div class="arena" id="arena">
+    <div class="hud">
+      <div class="hbar"><div class="nm">SADIA</div><div class="track"><div class="fill" id="hpS"></div></div></div>
+      <div class="timer" id="timer">99</div>
+      <div class="hbar right"><div class="nm">SOAD</div><div class="track"><div class="fill" id="hpM"></div></div></div>
+    </div>
+    <div class="world" id="world">
+      <svg class="bg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b0420"/><stop offset=".55" stop-color="#3a1055"/><stop offset="1" stop-color="#9a3466"/></linearGradient>
+          <radialGradient id="moonGlow"><stop offset="0" stop-color="#ffe7b8" stop-opacity=".85"/><stop offset="1" stop-color="#ffe7b8" stop-opacity="0"/></radialGradient>
+          <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4d3a5c"/><stop offset="1" stop-color="#130b1b"/></linearGradient>
+          <radialGradient id="flameG"><stop offset="0" stop-color="#fff4b0"/><stop offset=".5" stop-color="#ffa51f"/><stop offset="1" stop-color="#ff3d00" stop-opacity="0"/></radialGradient>
+          <radialGradient id="pool"><stop offset="0" stop-color="#ff9d3a" stop-opacity=".35"/><stop offset="1" stop-color="#ff9d3a" stop-opacity="0"/></radialGradient>
+        </defs>
+        <rect width="400" height="300" fill="url(#sky)"/>
+        <g fill="#fff" opacity=".75"><circle cx="40" cy="40" r="1.2"/><circle cx="90" cy="70" r="1"/><circle cx="130" cy="30" r="1.4"/><circle cx="300" cy="45" r="1.2"/><circle cx="350" cy="80" r="1"/><circle cx="270" cy="25" r="1"/><circle cx="60" cy="100" r=".9"/><circle cx="335" cy="30" r="1.3"/></g>
+        <circle cx="200" cy="96" r="78" fill="url(#moonGlow)"/>
+        <circle cx="200" cy="96" r="42" fill="#fff0cf"/>
+        <g fill="#ecd3a2"><circle cx="187" cy="85" r="7"/><circle cx="214" cy="104" r="5"/><circle cx="206" cy="78" r="3.5"/><circle cx="192" cy="110" r="3"/></g>
+        <path d="M0 192 L50 142 L92 176 L140 122 L192 182 L232 152 L282 186 L332 132 L400 188 L400 225 L0 225Z" fill="#1d0f2e"/>
+        <path d="M0 208 L70 168 L122 198 L182 162 L242 202 L302 172 L362 202 L400 182 L400 230 L0 230Z" fill="#150a22"/>
+        <g fill="#0b0514">
+          <rect x="172" y="146" width="56" height="70"/>
+          <path d="M154 148 Q200 122 246 148 L238 154 L162 154Z"/>
+          <path d="M168 126 Q200 104 232 126 L226 131 L174 131Z"/>
+          <path d="M183 108 Q200 90 217 108 L213 112 L187 112Z"/>
+          <rect x="198" y="84" width="4" height="24"/>
+        </g>
+        <g fill="#ffb347" opacity=".85"><rect x="186" y="164" width="6" height="12"/><rect x="197" y="164" width="6" height="12"/><rect x="208" y="164" width="6" height="12"/><rect x="197" y="190" width="6" height="26"/></g>
+        <g><rect x="16" y="92" width="30" height="136" fill="#2a1a3a"/><rect x="11" y="86" width="40" height="10" fill="#3a2650"/><rect x="11" y="224" width="40" height="8" fill="#3a2650"/>
+           <rect x="354" y="92" width="30" height="136" fill="#2a1a3a"/><rect x="349" y="86" width="40" height="10" fill="#3a2650"/><rect x="349" y="224" width="40" height="8" fill="#3a2650"/>
+           <g stroke="#1b0f28" stroke-width="2"><path d="M24 98V226M38 98V226M362 98V226M376 98V226"/></g></g>
+        <rect x="27" y="70" width="8" height="16" fill="#6b4a2b"/><ellipse class="flame" cx="31" cy="60" rx="10" ry="17" fill="url(#flameG)"/>
+        <rect x="365" y="70" width="8" height="16" fill="#6b4a2b"/><ellipse class="flame" cx="369" cy="60" rx="10" ry="17" fill="url(#flameG)"/>
+        <rect y="212" width="400" height="88" fill="url(#floor)"/>
+        <ellipse cx="40" cy="250" rx="90" ry="22" fill="url(#pool)"/><ellipse cx="360" cy="250" rx="90" ry="22" fill="url(#pool)"/>
+        <g stroke="#7a5c8c" stroke-width="1" opacity=".45" fill="none"><path d="M0 228H400M0 250H400M0 278H400"/>
+          <path d="M200 212L-120 300M200 212L-20 300M200 212L80 300M200 212L200 300M200 212L320 300M200 212L420 300M200 212L520 300"/></g>
+      </svg>
+      <div class="fog f1"></div><div class="fog f2"></div>
+      <div class="shadow" id="shS"></div><div class="shadow" id="shM"></div>
+      <div class="char" id="sadia">
+        <svg viewBox="0 0 100 150">
         <g class="legL" style="transform-origin:44px 112px"><rect x="39.5" y="110" width="9" height="36" rx="4" fill="#f3c9a6"/><ellipse cx="46" cy="146" rx="6.5" ry="3.5" fill="#d6336c"/></g>
         <g class="legR" style="transform-origin:56px 112px"><rect x="51.5" y="110" width="9" height="36" rx="4" fill="#f3c9a6"/><ellipse cx="58" cy="146" rx="6.5" ry="3.5" fill="#d6336c"/></g>
+        <g class="upper" style="transform-origin:50px 112px">
+        <ellipse cx="50" cy="40" rx="32" ry="34" fill="#21130f"/>
+        <rect x="17" y="40" width="66" height="74" rx="22" fill="#21130f"/>
+        <g class="armB" style="transform-origin:38px 66px"><rect x="34" y="62" width="38" height="10" rx="5" fill="#f3c9a6"/><circle cx="74" cy="67" r="8" fill="#f3c9a6" stroke="#d9a07c" stroke-width="1.5"/></g>
         <rect x="30" y="68" width="40" height="46" rx="14" fill="#d62839"/>
         <polygon points="30,92 70,92 82,130 18,130" fill="#d62839"/>
         <path d="M19.6 122 L80.4 122 L82 130 L18 130Z" fill="#f4a21d"/>
@@ -128,21 +206,22 @@
           <circle cx="42" cy="43.8" r=".9" fill="#fff"/><circle cx="60" cy="43.8" r=".9" fill="#fff"/>
           <path d="M44 56 Q50 61 56 56" stroke="#b02a4a" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>
         <g class="angry"><path d="M33 37 L47 42 M67 37 L53 42" stroke="#21130f" stroke-width="3.4" stroke-linecap="round"/><text x="64" y="20" font-size="15">💢</text></g>
-        <g class="arm" id="armS"><rect x="58" y="62" width="34" height="10" rx="5" fill="#f3c9a6"/><circle cx="94" cy="67" r="8" fill="#f3c9a6" stroke="#d9a07c" stroke-width="1.5"/></g>
-      </svg>
-    </div>
-    <div class="char" id="soad">
-      <svg viewBox="0 0 100 150">
+        <g class="armF" style="transform-origin:62px 66px"><rect x="58" y="62" width="34" height="10" rx="5" fill="#f3c9a6"/><circle cx="94" cy="67" r="8" fill="#f3c9a6" stroke="#d9a07c" stroke-width="1.5"/></g>
+        </g>
+        </svg>
+      </div>
+      <div class="char" id="soad">
+        <svg viewBox="0 0 100 150">
         <defs><pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r=".8" fill="#a9bdf0"/><circle cx="4.5" cy="4.5" r=".8" fill="#a9bdf0"/></pattern></defs>
+        <g class="legL" style="transform-origin:42px 112px"><rect x="36" y="110" width="12" height="36" rx="5" fill="#34426b"/><ellipse cx="41" cy="146" rx="8" ry="3.8" fill="#16161c"/></g>
+        <g class="legR" style="transform-origin:58px 112px"><rect x="52" y="110" width="12" height="36" rx="5" fill="#34426b"/><ellipse cx="57" cy="146" rx="8" ry="3.8" fill="#16161c"/></g>
+        <g class="upper" style="transform-origin:50px 112px">
+        <g class="armB" style="transform-origin:73px 72px"><rect x="68" y="86" width="10" height="22" rx="5" fill="#d8a57d"/><circle cx="73" cy="108" r="5.5" fill="#d8a57d"/><rect x="68" y="70" width="10" height="24" rx="5" fill="#1c2a5a"/></g>
         <rect x="32" y="68" width="36" height="46" rx="12" fill="#1c2a5a"/>
         <rect x="32" y="68" width="36" height="46" rx="12" fill="url(#dots)"/>
         <path d="M41 67 L50 83 L59 67Z" fill="#d8a57d"/>
         <path d="M37 67 L48 70 L43 82Z M63 67 L52 70 L57 82Z" fill="#26377a"/>
-        <rect x="36" y="112" width="12" height="34" rx="5" fill="#34426b"/>
-        <rect x="52" y="112" width="12" height="34" rx="5" fill="#34426b"/>
-        <rect x="22" y="86" width="10" height="22" rx="5" fill="#d8a57d"/><rect x="22" y="70" width="10" height="24" rx="5" fill="#1c2a5a"/>
-        <rect x="68" y="86" width="10" height="22" rx="5" fill="#d8a57d"/><rect x="68" y="70" width="10" height="24" rx="5" fill="#1c2a5a"/>
-        <g transform="translate(100,0) scale(-1,1)">
+        <g class="armF" style="transform-origin:27px 72px"><rect x="22" y="86" width="10" height="22" rx="5" fill="#d8a57d"/><circle cx="27" cy="108" r="5.5" fill="#d8a57d"/><rect x="22" y="70" width="10" height="24" rx="5" fill="#1c2a5a"/></g>
           <ellipse cx="29" cy="47" rx="3.5" ry="5" fill="#d8a57d"/><ellipse cx="71" cy="47" rx="3.5" ry="5" fill="#d8a57d"/>
           <ellipse cx="50" cy="43" rx="22.5" ry="25.5" fill="#d8a57d"/>
           <path d="M28 52 C30 74 70 74 72 52 C69 62 60 64 50 64 C40 64 31 62 28 52Z" fill="#3a2a24"/>
@@ -162,16 +241,21 @@
             <ellipse cx="50" cy="60.5" rx="4" ry="3.2" fill="#5a1f1a"/>
             <text class="st" x="22" y="12" font-size="14">💫</text><text class="st" x="58" y="10" font-size="14">⭐</text>
           </g>
-        </g>
         <circle class="lump l1" cx="30" cy="30" r="6" fill="#ff8787"/>
         <circle class="lump l2" cx="70" cy="36" r="5" fill="#ff8787"/>
         <circle class="lump l3" cx="62" cy="22" r="6" fill="#ff6b6b"/>
-      </svg>
+        </g>
+        </svg>
+      </div>
+      <div class="fxl" id="fxl"></div>
     </div>
+    <div class="vignette"></div>
+    <div class="flash" id="flash"></div>
+    <div class="banner" id="banner"></div>
   </div>
-  <div class="bubble" id="bubble">Soad is waiting... nervously 😰</div>
+  <div class="bubble" id="bubble">Get ready...</div>
   <div class="btns">
-    <button class="punish" id="btnHit">Beat him up 👊</button>
+    <button class="punish" id="btnHit">Attack 👊</button>
     <button class="accept" id="btnForgive" style="display:none">Okay, I forgive you 💖</button>
   </div>
 </section>
@@ -209,123 +293,304 @@ async function openNote(){
 $('btnAccept').onclick = openNote;
 $('btnBack').onclick = () => show('s-home');
 
-// punish
-let hits = 0, busy = false;
-$('btnPunish').onclick = () => { show('s-punish'); };
-const words = ['POW!','BAM!','THWACK!','BONK!'];
-const lines = ['Ouch!! 😵','Okay okay, I deserved that!','Please... no more 🙏','I\'m sorry, Sadia!! 😭'];
+// ===== MORTAL-KOMBAT-STYLE FIGHT =====
+const arena=$('arena'), world=$('world'), fxl=$('fxl'), flashEl=$('flash'), banner=$('banner');
+const S=$('sadia'), M=$('soad'), shS=$('shS'), shM=$('shM'), btnHit=$('btnHit');
+const pick=(c,sel)=>c.querySelector(sel);
+const sp={armF:pick(S,'.armF'),armB:pick(S,'.armB'),legL:pick(S,'.legL'),legR:pick(S,'.legR'),up:pick(S,'.upper')};
+const mp={armF:pick(M,'.armF'),armB:pick(M,'.armB'),legL:pick(M,'.legL'),legR:pick(M,'.legR'),up:pick(M,'.upper')};
+const R=(a,b)=>a+Math.random()*(b-a);
 
-function fx(text, x, y){
-  const e = document.createElement('div');
-  e.className = 'fx'; e.textContent = text;
-  e.style.left = x + 'px'; e.style.top = y + 'px';
-  $('stage').appendChild(e);
-  setTimeout(() => e.remove(), 900);
+// rotate a body part (SVG group) with tween
+function rot(el,deg,ms=150,ease='ease-out'){
+  const from=el._a||0; el._a=deg;
+  if(el._an){el._an.cancel();el._an=null;}
+  if(!ms){el.style.transform=`rotate(${deg}deg)`;return Promise.resolve();}
+  const a=el._an=el.animate([{transform:`rotate(${from}deg)`},{transform:`rotate(${deg}deg)`}],{duration:ms,easing:ease,fill:'forwards'});
+  return a.finished.then(()=>{if(el._an===a){el.style.transform=`rotate(${deg}deg)`;a.cancel();el._an=null;}}).catch(()=>{});
+}
+// move a whole fighter
+const tstr=o=>`translate(${o.x}px,${o.y}px) rotate(${o.r}deg) scale(${o.sx},${o.sy})`;
+function mv(el,t,ms=200,ease='ease-out'){
+  const f=el._s||{x:0,y:0,r:0,sx:1,sy:1}, to={...f,...t}; el._s=to;
+  if(el._an){el._an.cancel();el._an=null;}
+  if(!ms){el.style.transform=tstr(to);return Promise.resolve();}
+  const a=el._an=el.animate([{transform:tstr(f)},{transform:tstr(to)}],{duration:ms,easing:ease,fill:'forwards'});
+  return a.finished.then(()=>{if(el._an===a){el.style.transform=tstr(to);a.cancel();el._an=null;}}).catch(()=>{});
+}
+// multi-step path: steps = [{t(ms cumulative), x,y,r,sx,sy, e(easing)}]
+function path(el,steps){
+  let cur=el._s||{x:0,y:0,r:0,sx:1,sy:1}; const total=steps[steps.length-1].t;
+  const kf=[{transform:tstr(cur),offset:0}];
+  steps.forEach(st=>{cur={...cur,...st};kf.push({transform:tstr(cur),offset:st.t/total,easing:'linear'});});
+  // easing for a segment belongs to the keyframe it starts from
+  for(let i=0;i<steps.length;i++) kf[i].easing=steps[i].e||'linear';
+  const last=cur; el._s=last;
+  if(el._an){el._an.cancel();el._an=null;}
+  const a=el._an=el.animate(kf,{duration:total,fill:'forwards'});
+  return a.finished.then(()=>{if(el._an===a){el.style.transform=tstr(last);a.cancel();el._an=null;}}).catch(()=>{});
 }
 
-$('btnHit').onclick = async () => {
-  if (busy) return;
-  busy = true;
-  const stage = $('stage'), sadia = $('sadia'), soad = $('soad'), arm = $('armS');
-  const sr = stage.getBoundingClientRect();
-  const a = sadia.getBoundingClientRect(), b = soad.getBoundingClientRect();
-  const dist = b.left - a.left - 95;
-
-  // FINAL MOVE: flying kick
-  if (hits === 2) {
-    const legR = sadia.querySelector('.legR'), legL = sadia.querySelector('.legL');
-    const legNext = legR.nextSibling;
-    const F = {fill:'forwards'};
-    // wind-up: lean back, pull the kick leg back, raise arms for balance
-    $('bubble').textContent = 'Sadia is charging up... 😳';
-    sadia.animate([{transform:'translate(0,0) rotate(0deg)'},{transform:'translate(-10px,5px) rotate(-10deg)'}], {duration:600, easing:'ease-out', ...F});
-    legR.animate([{transform:'rotate(0deg)'},{transform:'rotate(38deg)'}], {duration:600, ...F});
-    legL.animate([{transform:'rotate(0deg)'},{transform:'rotate(-8deg)'}], {duration:600, ...F});
-    arm.animate([{transform:'rotate(80deg)'},{transform:'rotate(-55deg)'}], {duration:600, ...F});
-    await wait(700);
-    // kick leg goes in front of the skirt while it swings
-    sadia.querySelector('svg').appendChild(legR);
-    sadia.style.zIndex = 3;
-    const run = dist + 48;
-    // leap + leg swings forward to a straight kick
-    legR.animate([{transform:'rotate(38deg)'},{transform:'rotate(-92deg)'}], {duration:420, delay:230, easing:'ease-in', ...F});
-    legL.animate([{transform:'rotate(-8deg)'},{transform:'rotate(24deg)'}], {duration:520, ...F});
-    await sadia.animate([
-      {transform:'translate(-10px,5px) rotate(-10deg)'},
-      {transform:`translate(${run*0.5}px,-70px) rotate(-14deg)`, offset:.5},
-      {transform:`translate(${run}px,-4px) rotate(-10deg)`}
-    ], {duration:650, easing:'ease-in', ...F}).finished;
-    hits++;
-    soad.classList.add('hurt');
-    stage.className = 'stage hits3';
-    const ix = b.left - sr.left;
-    fx('💥 OOOF!!', ix - 40, 135);
-    ['⭐','💫','🌟','✨'].forEach((s,i) => setTimeout(() => fx(s, ix + i*16 - 20, 105), i*50));
-    $('bubble').textContent = 'Squeeeeeak!! 🥴';
-    stage.animate([{transform:'translate(0,0)'},{transform:'translate(-8px,4px)'},{transform:'translate(8px,-4px)'},{transform:'translate(0,0)'}], {duration:200, iterations:4});
-    soad.animate([
-      {transform:'translate(0,0) rotate(0) scale(1,1)'},
-      {transform:'translate(0,0) rotate(12deg) scale(1.1,.78)', offset:.15},
-      {transform:'translate(10px,-10px) rotate(15deg) scale(1.1,.78)', offset:.3},
-      {transform:'translate(190px,-150px) rotate(560deg) scale(1,1)', offset:.6},
-      {transform:'translate(190px,-150px) rotate(560deg) scale(1,1)', offset:.7},
-      {transform:'translate(0,0) rotate(720deg) scale(1,1)', offset:.92},
-      {transform:'translate(0,6px) rotate(720deg) scale(1.1,.85)', offset:.96},
-      {transform:'translate(0,0) rotate(720deg) scale(1,1)'}
-    ], {duration:2200, easing:'ease-in-out'});
-    await wait(250); // hold the kick on impact
-    // land: legs and arm return to normal
-    legR.animate([{transform:'rotate(-92deg)'},{transform:'rotate(0deg)'}], {duration:500, ...F});
-    legL.animate([{transform:'rotate(24deg)'},{transform:'rotate(0deg)'}], {duration:500, ...F});
-    arm.animate([{transform:'rotate(-55deg)'},{transform:'rotate(80deg)'}], {duration:500, ...F});
-    await sadia.animate([{transform:`translate(${run}px,-4px) rotate(-10deg)`},{transform:`translate(${run*0.5}px,-45px) rotate(-8deg)`},{transform:'translate(0,0) rotate(0deg)'}], {duration:650, ...F}).finished;
-    sadia.querySelector('svg').insertBefore(legR, legNext);
-    sadia.style.zIndex = '';
-    await wait(1200);
-    $('bubble').textContent = 'Punishment served 😤 ...so, forgive me now?';
-    $('btnHit').style.display = 'none';
-    $('btnForgive').style.display = 'block';
-    soad.classList.remove('hurt');
-    busy = false;
-    return;
+// ---------- effects ----------
+function burst(x,y,size=76){
+  const d=document.createElement('div'); d.className='spark';
+  d.style.cssText=`left:${x-size/2}px;top:${y-size/2}px;width:${size}px;height:${size}px`;
+  const n=10,out=[],inn=[];
+  for(let i=0;i<n*2;i++){
+    const ang=Math.PI*i/n+R(-.07,.07), rad=i%2?20:R(40,50);
+    const px=50+Math.cos(ang)*rad, py=50+Math.sin(ang)*rad;
+    out.push(px.toFixed(1)+','+py.toFixed(1)); inn.push((50+(px-50)*.5).toFixed(1)+','+(50+(py-50)*.5).toFixed(1));
   }
-
-  // run up
-  await sadia.animate([{transform:'translateX(0)'},{transform:`translateX(${dist}px)`}], {duration:450, easing:'ease-in', fill:'forwards'}).finished;
-  // swing arm
-  arm.animate([{transform:'rotate(80deg)'},{transform:'rotate(-40deg)'},{transform:'rotate(0deg)'}], {duration:280, fill:'forwards'});
-  await wait(200);
-  // impact
-  hits++;
-  soad.classList.add('hurt');
-  stage.className = 'stage hits' + Math.min(hits,3);
-  const ix = b.left - sr.left, iy = 85;
-  fx(words[(hits-1)%words.length], ix - 20, iy);
-  ['⭐','💫','✨'].forEach((s,i) => setTimeout(() => fx(s, ix + i*18 - 10, iy + 30), i*60));
-  $('bubble').textContent = lines[(hits-1)%lines.length];
-  soad.animate([
-    {transform:'translate(0,0) rotate(0)'},
-    {transform:'translate(30px,-30px) rotate(18deg)'},
-    {transform:'translate(-6px,0) rotate(-8deg)'},
-    {transform:'translate(8px,0) rotate(5deg)'},
-    {transform:'translate(0,0) rotate(0)'}
-  ], {duration:700, easing:'ease-out'});
-  stage.animate([{transform:'translateX(0)'},{transform:'translateX(-5px)'},{transform:'translateX(5px)'},{transform:'translateX(0)'}], {duration:250, iterations:2});
-  await wait(750);
-  // retreat
-  arm.animate([{transform:'rotate(0deg)'},{transform:'rotate(80deg)'}], {duration:250, fill:'forwards'});
-  await sadia.animate([{transform:`translateX(${dist}px)`},{transform:'translateX(0)'}], {duration:400, fill:'forwards'}).finished;
-  soad.classList.remove('hurt');
-
-  if (hits === 2) $('btnHit').textContent = 'Final move: flying kick 🦶';
-  if (hits >= 3){
-    $('bubble').textContent = 'Punishment served 😤 ...so, forgive me now?';
-    $('btnHit').style.display = 'none';
-    $('btnForgive').style.display = 'block';
+  d.innerHTML=`<svg viewBox="0 0 100 100"><polygon points="${out.join(' ')}" fill="#ffd24a" stroke="#ff5a1f" stroke-width="3" stroke-linejoin="round"/><polygon points="${inn.join(' ')}" fill="#fff"/></svg>`;
+  fxl.appendChild(d); setTimeout(()=>d.remove(),380);
+}
+function ring(x,y,size=120){
+  const d=document.createElement('div'); d.className='ring';
+  d.style.cssText=`left:${x-size/2}px;top:${y-size/2}px;width:${size}px;height:${size}px`;
+  fxl.appendChild(d); setTimeout(()=>d.remove(),520);
+}
+function dust(x,y,n=4){
+  for(let i=0;i<n;i++){
+    const d=document.createElement('div'); d.className='dust';
+    d.style.cssText=`left:${x+R(-14,14)}px;top:${y+R(-4,4)}px;animation-delay:${i*30}ms`;
+    fxl.appendChild(d); setTimeout(()=>d.remove(),700);
   }
-  busy = false;
+}
+function fxText(t,x,y,size){
+  const e=document.createElement('div'); e.className='fx'; e.textContent=t;
+  e.style.left=Math.max(4,x)+'px'; e.style.top=y+'px'; if(size) e.style.fontSize=size+'px';
+  fxl.appendChild(e); setTimeout(()=>e.remove(),900);
+}
+function shake(amp=6,ms=260){
+  const f=[];for(let i=0;i<8;i++)f.push({transform:`translate(${R(-amp,amp)}px,${R(-amp,amp)}px)`});f.push({transform:'translate(0,0)'});
+  arena.animate(f,{duration:ms});
+}
+function flashW(ms=110,o=.85){flashEl.animate([{opacity:o},{opacity:0}],{duration:ms});}
+let zoomA=null;
+function zoom(x,y,sc=1.2,ms=140){
+  world.style.transformOrigin=`${x}px ${y}px`;
+  if(zoomA)zoomA.cancel();
+  zoomA=world.animate([{transform:'scale(1)'},{transform:`scale(${sc})`}],{duration:ms,fill:'forwards',easing:'ease-out'});
+  zoomA._sc=sc;
+}
+function unzoom(ms=450){
+  if(!zoomA)return; const sc=zoomA._sc, old=zoomA;
+  const a=world.animate([{transform:`scale(${sc})`},{transform:'scale(1)'}],{duration:ms,easing:'ease-in-out'});
+  old.cancel(); zoomA=null;
+}
+function say(text,{ms=1100,stay=false,ko=false,sm=false}={}){
+  banner.className='banner'; void banner.offsetWidth;
+  banner.textContent=text; banner.style.setProperty('--ms',ms+'ms');
+  banner.className='banner show'+(stay?' stay':'')+(ko?' ko':'')+(sm?' sm':'');
+  return wait(ms);
+}
+const hideBanner=()=>{banner.className='banner';};
+function setHp(el,p){el.style.width=p+'%';el.classList.toggle('low',p>0&&p<=34);}
+function setHits(n){arena.classList.remove('hits1','hits2','hits3');if(n)arena.classList.add('hits'+Math.min(n,3));}
+
+// ---------- geometry ----------
+const K=175/150;                                  // Soad svg scale
+const geo=()=>({sx:S.offsetLeft,mx:M.offsetLeft,top:M.offsetTop,ground:S.offsetTop+S.offsetHeight});
+const reachFist=g=>(g.mx+30)-(g.sx+97);
+const chest=g=>({x:g.mx+30,y:g.top+86*K});
+const chin=g=>({x:g.mx+42,y:g.top+64*K});
+const groin=g=>({x:g.mx+44,y:g.top+112*K});
+
+function stance(ms=220){
+  rot(sp.armF,-42,ms);rot(sp.armB,-18,ms);rot(sp.legL,-7,ms);rot(sp.legR,9,ms);rot(sp.up,2,ms);
+  rot(mp.armF,30,ms);rot(mp.armB,-6,ms);rot(mp.legL,8,ms);rot(mp.legR,-9,ms);rot(mp.up,-3,ms);
+}
+function runLegs(){ // little running scissor for dashes
+  rot(sp.legL,-38,90);rot(sp.legR,38,90);
+  setTimeout(()=>{rot(sp.legL,30,90);rot(sp.legR,-30,90);},100);
+  setTimeout(()=>{rot(sp.legL,-7,120);rot(sp.legR,9,120);},210);
+}
+async function soadHit(kx=16,lean=16,hold=110){
+  M.classList.add('hurt');
+  mv(M,{x:kx,r:2},90,'ease-out');rot(mp.up,lean,90);rot(mp.armF,-14,90);rot(mp.armB,-30,90);
+  await wait(hold);
+  mv(M,{x:0,r:0},300,'ease-out');rot(mp.up,-3+lean*.25,300);rot(mp.armF,22,300);rot(mp.armB,-10,300);
+}
+function hit(p,{text,size=76,hp,big=false,hitstop=80,sh=5}){
+  burst(p.x,p.y,size); if(big)ring(p.x,p.y,size*1.7);
+  fxText(text,p.x-28,p.y-48,big?34:26);
+  shake(sh,big?320:220);
+  if(hp!=null) setHp($('hpM'),hp);
+  return wait(hitstop);
+}
+
+// ---------- fight state ----------
+let hits=0,busy=false,secs=99,timerId=null,over=false;
+$('btnPunish').onclick=startFight;
+async function startFight(){
+  show('s-punish'); busy=true; hits=0; over=false; secs=99;
+  btnHit.style.display='';btnHit.disabled=true;$('btnForgive').style.display='none';
+  btnHit.textContent='Jab combo 👊';
+  $('hpM').style.width='100%';$('hpS').style.width='100%';
+  $('timer').textContent=secs; setHits(0); stance(0);
+  $('bubble').textContent='Sadia cracks her knuckles... 😤';
+  await wait(450);
+  await say('ROUND 1',{ms:1000});
+  await say('FIGHT!',{ms:800});
+  clearInterval(timerId);
+  timerId=setInterval(()=>{if(!over&&secs>0){secs--;$('timer').textContent=secs;}},1000);
+  $('bubble').textContent='Your move, Sadia 👊';
+  btnHit.disabled=false; busy=false;
+}
+
+async function atkCombo(){
+  const g=geo(), dx=reachFist(g);
+  $('bubble').textContent='Jab... cross! 👊👊';
+  dust(g.sx+30,g.ground-2,3); runLegs();
+  await mv(S,{x:dx,y:0,r:5},240,'cubic-bezier(.15,.8,.25,1)');
+  // jab
+  rot(sp.armF,2,60,'ease-in'); rot(sp.up,8,60);
+  await wait(55);
+  await hit(chest(g),{text:'POW!',size:70,hp:84,hitstop:70});
+  setHits(1); soadHit(14,14,90);
+  await wait(170);
+  // cross with the rear hand, body twist
+  rot(sp.armF,-50,110); rot(sp.armB,0,60,'ease-in'); rot(sp.up,-8,60);
+  await wait(60);
+  await hit({x:g.mx+34,y:g.top+80*K},{text:'BAM!',size:96,hp:66,big:true,hitstop:110,sh:8});
+  setHits(2); flashW(70,.5);
+  await soadHit(34,24,130);
+  // back off
+  rot(sp.armB,-18,220); rot(sp.up,2,220);
+  await mv(S,{x:dx*.4,r:0},320,'ease-in-out');
+  stance(240);
+  $('bubble').textContent='Soad is hurting... 🥴';
+}
+
+async function atkUpper(){
+  const g=geo(), dx=reachFist(g)*.94;
+  $('bubble').textContent='Sadia goes for the uppercut! 💥';
+  dust(g.sx+40,g.ground-2,3); runLegs();
+  await mv(S,{x:dx,y:0,r:2},200,'cubic-bezier(.15,.8,.25,1)');
+  // crouch
+  rot(sp.armF,60,100); rot(sp.up,-10,100);
+  await mv(S,{y:7,sy:.9,sx:1.05},120,'ease-in');
+  // spring up with rising fist
+  rot(sp.armF,-64,90,'ease-in');rot(sp.up,4,90);rot(sp.legL,-24,120);rot(sp.legR,22,120);
+  mv(S,{y:-24,sy:1.05,sx:.97,r:-4},150,'ease-out');
+  await wait(130);
+  const p=chin(g);
+  await hit(p,{text:'UPPERCUT!',size:110,hp:36,big:true,hitstop:130,sh:10});
+  setHits(3); flashW(80,.6); M.classList.add('hurt');
+  // Soad is launched into a juggle
+  rot(mp.armF,-40,160);rot(mp.armB,50,160);rot(mp.up,24,160);
+  const soadFly=path(M,[
+    {t:420,x:32,y:-66,r:150,e:'cubic-bezier(.1,.7,.3,1)'},
+    {t:800,x:14,y:0,r:360,e:'cubic-bezier(.5,0,.9,.5)'},
+    {t:890,y:4,sy:.86,sx:1.1,e:'ease-out'},
+    {t:1090,y:0,sy:1,sx:1,e:'ease-out'}
+  ]);
+  // Sadia follows with a mid-air strike at the apex
+  await wait(80);
+  path(S,[{t:300,x:dx+10,y:-46,r:-6,e:'ease-out'},{t:360,x:dx+10,y:-46,r:-6}]);
+  rot(sp.armB,-4,80,'ease-in');
+  await wait(300);
+  fxText('COMBO!',p.x-70,p.y-80,34); burst(chest(g).x+22,g.top+60*K,84); shake(6,220); setHp($('hpM'),22);
+  await wait(110);
+  // Sadia drops back down
+  rot(sp.armB,-18,200);rot(sp.armF,-42,200);rot(sp.legL,-7,200);rot(sp.legR,9,200);
+  mv(S,{y:0,x:dx*.45,r:0,sx:1,sy:1},380,'ease-in');
+  await soadFly;
+  dust(g.mx+58,g.ground-2,5);
+  // Soad wobbles, dizzy
+  rot(mp.up,18,260);rot(mp.armF,18,260);rot(mp.armB,-18,260);
+  M._sway=pick(M,'svg').animate([{transform:'rotate(-5deg)'},{transform:'rotate(5deg)'}],{duration:650,direction:'alternate',iterations:Infinity,easing:'ease-in-out'});
+  pick(M,'svg').style.transformOrigin='50% 90%';
+  await wait(250);
+  stance(260); rot(mp.up,16,260);
+  setHp($('hpM'),14);
+  await wait(250);
+  $('bubble').textContent='Sadia is lining up the kick... 😈';
+  await say('FINISH HIM!',{ms:1600,stay:true,ko:true});
+}
+
+async function atkKick(){
+  hideBanner();
+  const g=geo(), dxk=(g.mx+46)-(g.sx+90);
+  const svg=pick(S,'svg'), legR=sp.legR, nextSib=legR.nextSibling;
+  $('bubble').textContent='Sadia is charging up... 😳';
+  // wind-up: lean back, kick leg back, arms spread
+  mv(S,{x:-12,y:3,r:-9},520,'ease-out');
+  rot(sp.legR,42,520);rot(sp.legL,-10,520);rot(sp.armF,-62,520);rot(sp.armB,40,520);rot(sp.up,-6,520);
+  await wait(560);
+  // leg goes in front of skirt for the kick
+  svg.appendChild(legR);
+  rot(sp.legR,-92,300,'cubic-bezier(.2,.8,.2,1)');
+  rot(sp.legL,28,420);rot(sp.armF,-30,300);rot(sp.armB,-10,300);rot(sp.up,6,300);
+  dust(g.sx+40,g.ground-2,3);
+  const jump=path(S,[
+    {t:260,x:dxk*.5,y:-70,r:-14,e:'ease-out'},
+    {t:510,x:dxk,y:-10,r:-12,e:'ease-in'}
+  ]);
+  await wait(430);
+  // IMPACT
+  const p=groin(g);
+  M._sway&&M._sway.cancel(); M._sway=null; pick(M,'svg').style.transformOrigin='';
+  M.classList.add('hurt');
+  zoom(p.x,p.y,1.28,120);
+  flashW(120,.95); 
+  burst(p.x,p.y,120); ring(p.x,p.y,190); fxText('OOOF!!',p.x-44,p.y-70,40);
+  shake(12,420); setHp($('hpM'),0);
+  mv(M,{sx:1.16,sy:.8,y:8,r:6},70,'ease-out');
+  rot(mp.up,42,120);rot(mp.legL,-26,120);rot(mp.legR,26,120);rot(mp.armF,-60,120);rot(mp.armB,60,120);
+  await wait(170);
+  unzoom(500);
+  // Soad is launched, tumbles, lands flat
+  const fly=path(M,[
+    {t:560,x:30,y:-100,r:330,sx:1,sy:1,e:'cubic-bezier(.1,.75,.3,1)'},
+    {t:1080,x:-44,y:6,r:450,e:'cubic-bezier(.55,0,.9,.55)'},
+    {t:1170,x:-44,y:-2,r:450,e:'ease-out'},
+    {t:1280,x:-44,y:6,r:450}
+  ]);
+  await jump;
+  // Sadia lands
+  rot(sp.legR,0,260);rot(sp.legL,-6,260);
+  svg.insertBefore(legR,nextSib);
+  await mv(S,{x:dxk*.55,y:0,r:0},300,'ease-out');
+  await fly;
+  setHits(3);
+  dust(g.mx+58,g.ground-2,7); shake(9,260);
+  over=true; clearInterval(timerId);
+  // victory
+  S.classList.add('win');
+  rot(sp.armF,-172,260);rot(sp.armB,-160,260);rot(sp.legL,-10,200);rot(sp.legR,12,200);
+  mv(S,{x:dxk*.35},500,'ease-in-out');
+  await say('K.O.',{ms:1400,ko:true});
+  flashW(160,.6);
+  path(S,[{t:180,y:-14,e:'ease-out'},{t:360,y:0,e:'ease-in'},{t:540,y:-14,e:'ease-out'},{t:720,y:0,e:'ease-in'}]);
+  await say('FLAWLESS VICTORY',{ms:1000,stay:true,sm:true});
+  $('bubble').textContent='Soad has been defeated 😵 ...forgive him now?';
+  btnHit.style.display='none';
+  $('btnForgive').style.display='block';
+}
+
+btnHit.onclick=async()=>{
+  if(busy||over)return; busy=true; btnHit.disabled=true;
+  try{
+    if(hits===0){await atkCombo();hits=1;btnHit.textContent='Uppercut 💥';}
+    else if(hits===1){await atkUpper();hits=2;btnHit.textContent='Flying kick 🦶';}
+    else {await atkKick();hits=3;}
+  }finally{ busy=false; if(!over)btnHit.disabled=false; }
 };
-$('btnForgive').onclick = openNote;
+$('btnForgive').onclick=openNote;
+
+// ground shadows follow the fighters (and shrink when airborne)
+(function loop(){
+  if($('s-punish').classList.contains('active')){
+    const A=arena.getBoundingClientRect();
+    for(const [c,sh] of [[S,shS],[M,shM]]){
+      const r=c.getBoundingClientRect(), cx=r.left-A.left+r.width/2, lift=Math.max(0,(A.bottom-28)-r.bottom);
+      sh.style.transform=`translate(${cx-42}px,0) scale(${Math.max(.4,1-lift/230)},1)`;
+      sh.style.opacity=Math.max(.2,1-lift/260);
+    }
+  }
+  requestAnimationFrame(loop);
+})();
 </script>
 </body>
 </html>
